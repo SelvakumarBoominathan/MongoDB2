@@ -61,16 +61,24 @@ const zenDB = {
     "web_development": [
       {
         "topic": "HTML",
-        "taught_dates": ["2020-10-10"]
+        "taught_month": ["September"]
       },
       {
         "topic": "CSS",
-        "taught_dates": ["2020-10-12"]
+        "taught_month": ["October"]
       },
       {
         "topic": "JavaScript",
-        "taught_dates": ["2020-10-15"]
-      }
+        "taught_month": ["October"]
+      },
+      {
+        "topic": "DOM",
+        "taught_month": ["November"]
+      },
+      {
+        "topic": "React",
+        "taught_month": ["December"]
+      },
     ]
   },
   "tasks": [{
