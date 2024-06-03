@@ -1,34 +1,60 @@
 const zenDB = {
   "users": [
     {
-      "userID": "U001",
-      "name": "John Doe",
-      "email": "john.doe@example.com",
+      "userID": "1",
+      "name": "Ajith",
+      "email": "ajith@gmail.com",
       "course": "Web Development",
       "attended_dates": ["2020-10-15", "2020-10-20"],
       "tasks_submitted": ["T001"]
     },
     {
-      "userID": "U002",
-      "name": "Jane Smith",
-      "email": "jane.smith@example.com",
+      "userID": "2",
+      "name": "Rajesh",
+      "email": "rajesh@gmail.com",
       "course": "Data Science",
       "attended_dates": ["2020-10-16", "2020-10-21"],
-      "tasks_submitted": []
-    }
+      "tasks_submitted": ["T001", "T002"]
+    },
+    {
+      "userID": "3",
+      "name": "Priya",
+      "email": "Priya@gmail.com",
+      "course": "Data Science",
+      "attended_dates": ["2020-10-16", "2020-10-21"],
+      "tasks_submitted": ["T001", "T002"]
+    },
+    {
+      "userID": "4",
+      "name": "Mahesh",
+      "email": "mahesh@gmail.com",
+      "course": "UI/UX",
+      "attended_dates": ["2020-10-16", "2020-10-21"],
+      "tasks_submitted": ["T002"]
+    },
   ],
   "codekatta": {
     "user_problems": [
       {
-        "userID": "U001",
+        "userID": "1",
         "completed_questions": 50,
         "pending_questions": 10
       },
       {
-        "userID": "U002",
+        "userID": "2",
         "completed_questions": 30,
+        "pending_questions": 30
+      },
+      {
+        "userID": "3",
+        "completed_questions": 40,
         "pending_questions": 20
-      }
+      },
+      {
+        "userID": "4",
+        "completed_questions": 36,
+        "pending_questions": 24
+      },
     ]
   },
   "topics": {
@@ -47,9 +73,7 @@ const zenDB = {
       }
     ]
   },
-  "tasks": {
-    "completed_tasks": [
-      {
+  "tasks": [{
         "taskID": "T001",
         "description": "Complete HTML Tutorial",
         "completed_on": "2020-10-02"
@@ -58,9 +82,7 @@ const zenDB = {
         "taskID": "T002",
         "description": "Build a React App",
         "completed_on": "2020-10-05"
-      }
-    ],
-    "pending_tasks": [
+      },
       {
         "taskID": "T003",
         "description": "Learn Node.js",
@@ -71,40 +93,39 @@ const zenDB = {
         "description": "Create a Portfolio Website",
         "due_date": "2020-10-15"
       }
-    ]
-  },
+   ],
   "company_drives": [
     {
       "company_name": "Tech Corp",
       "date": "2020-10-15",
       "positions": ["Software Engineer", "Frontend Developer"],
-      "students_appeared": ["U001"]
+      "students_appeared": ["1", "3"]
     },
     {
       "company_name": "Data Inc",
       "date": "2020-11-20",
       "positions": ["Data Scientist", "Data Analyst"],
-      "students_appeared": ["U002"]
+      "students_appeared": ["2", "3", "4"]
     },
     {
       "company_name": "Web Solutions",
       "date": "2020-10-25",
       "positions": ["Full Stack Developer", "Backend Developer"],
-      "students_appeared": ["U001", "U002"]
+      "students_appeared": ["1", "2", "4"]
     }
   ],
   "mentors": [
     {
-      "name": "Alice Johnson",
+      "name": "Thiru",
       "id": "M001",
       "course_taught": "Web Development",
-      "users": ["U001", "U002"]
+      "users": ["1", "2"]
     },
     {
-      "name": "Bob Brown",
+      "name": "Kamal",
       "id": "M002",
       "course_taught": "Data Science",
-      "users": ["U002"]
+      "users": ["3", "4"]
     }
   ]
 }
