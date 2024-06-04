@@ -1,132 +1,137 @@
 // 1. Find all the topics and tasks which are thought in the month of October.
 
-db.zenData.aggregate([
+db.Topics.aggregate([
   {
-    $project: {
-      // Ensuing web_development_topics and tasks_listed as arr
-      web_development_topics: {
-        $cond: {
-          if: { $isArray: "$topics.web_development" },
-          then: "$topics.web_development",
-          else: []
-        }
-      },
-      tasks_list: {
-        $cond: {
-          if: { $isArray: "$tasks" },
-          then: "$tasks",
-          else: []
-        }
-      }
-    }
+    $facet: {
+      topics: [
+        {
+          $match: {
+            taught_month: "October",
+          },
+        },
+        {
+          $project: {
+            _id: 0,
+            topic: 1,
+          },
+        },
+      ],
+      tasks: [
+        {
+          $match: {
+            completed_on: {
+              $regex: "^2020-10-[0-9]{2}$",
+            },
+          },
+        },
+        {
+          $project: {
+            _id: 0,
+            taskID: 1,
+            description: 1,
+          },
+        },
+      ],
+    },
   },
-  {
-    $project: {
-      // topics taught in Otbr
-      topics_in_october: {
-        $filter: {
-          input: "$web_development_topics",
-          as: "topic",
-          cond: {
-            $in: ["October", { $ifNull: ["$$topic.taught_month", []] }]
-          }
-        }
-      },
-      // topics completed in Otbr
-      tasks_in_october: {
-        $filter: {
-          input: "$tasks_list",
-          as: "task",
-          cond: {
-            $and: [
-              { $gte: ["$$task.completed_on", "2020-10-01"] },
-              { $lte: ["$$task.completed_on", "2020-10-31"] }
-            ]
-          }
-        }
-      }
-    }
-  }
-])
-
-
+]);
 
 // 2. Find all the company drives which appeared between 15-oct-2020 and 31-oct-2020
 
-db.zenData.aggregate([
+db.Tasks.find(
   {
-    $match: {
-      "company_drives.date": {
-        $gte: "2020-10-15",
-        $lte: "2020-10-31"
-      }
-    }
+    completed_on: {
+      $gte: "2020-10-01",
+      $lte: "2020-10-31",
+    },
   },
   {
-    $project: {
-      company_drives: {
-        $filter: {
-          input: "$company_drives",
-          as: "drive",
-          cond: {
-            $and: [
-              { $gte: ["$$drive.date", "2020-10-15"] },
-              { $lte: ["$$drive.date", "2020-10-31"] }
-            ]
-          }
-        }
-      }
-    }
+    _id: 0,
+    taskID: 1,
+    description: 1,
   }
-])
-
+);
 
 //3 . Find all the company drives and students who are appeared for the placement.
 
-
-db.zenData.aggregate([
+db.Company.aggregate([
   {
     $lookup: {
-      from: "users",
-      localField: "company_drives.students_appeared",
+      from: "Users",
+      localField: "students_appeared",
       foreignField: "userID",
-      as: "students_info"
-    }
+      as: "students",
+    },
   },
   {
     $project: {
-      "company_drives": 1,
-      "students_names": "$users.name"
-    }
-  }
-])
-
+      _id: 0,
+      company_name: 1,
+      date: 1,
+      students: "$students.name",
+    },
+  },
+]);
 
 //   4. find the number of problems solved by the user in codekatta
 
-
 db.zenData.aggregate([
   {
-    $unwind: "$codekatta.user_problems" // Unwind to access each individual user's problem
+    $unwind: "$codekatta.user_problems", // Unwind to access each individual user's problem
   },
   {
     $group: {
       _id: "$codekatta.user_problems.userID", // Group by user ID
-      total_problems_solved: { $sum: "$codekatta.user_problems.completed_questions" } // Sum completed questions for each user
-    }
+      total_problems_solved: {
+        $sum: "$codekatta.user_problems.completed_questions",
+      }, // Sum completed questions for each user
+    },
   },
   {
     $lookup: {
       from: "users",
       localField: "_id",
       foreignField: "userID",
-      as: "user_info"
-    }
+      as: "user_info",
+    },
   },
   {
     $project: {
       student_name: { $arrayElemAt: ["$users.name", 0] }, // Get the name of the user
-      total_problems_solved: 1 // Include the total_problems_solved field
-    }
-  }
-])
+      total_problems_solved: 1, // Include the total_problems_solved field
+    },
+  },
+]);
+
+// 5.Find all the mentors with who has the mentee's count more than 15.
+
+db.Mentors.find(
+  { users_count: { $gt: 15 } },
+  { _id: 0, name: 1, users_count: 1 }
+);
+
+//6.Find the number of users who are absent and task is not submitted between 15-oct-2020 and 31-oct-2020
+
+db.users.aggregate([
+  {
+    $match: {
+      $or: [
+        {
+          attended_dates: {
+            $not: {
+              $regex: /^2020-10-(15|31)$/,
+            },
+          },
+        },
+        {
+          $expr: {
+            $eq: [{ $size: "$tasks_submitted" }, 0],
+          },
+        },
+      ],
+    },
+  },
+  {
+    $count: "absent_or_no_tasks",
+  },
+]);

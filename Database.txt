@@ -1,5 +1,10 @@
-const zenDB = [
-  {"users": [
+DBName = zenDB
+
+
+collections : 
+
+
+1. "users": [
     {
       "userID": "1",
       "name": "Ajith",
@@ -32,8 +37,9 @@ const zenDB = [
       "attended_dates": ["2020-10-16", "2020-10-21"],
       "tasks_submitted": ["T002"]
     },
-  ]},
-  {"codekatta": [
+  ]
+
+2. "codekatta": [
       {
         "userID": "1",
         "completed_questions": 50,
@@ -55,8 +61,10 @@ const zenDB = [
         "pending_questions": 24
       },
     ]
-  },
-  {"topics": [
+
+  
+  
+  3. "topics": [
       {
         "topic": "HTML",
         "taught_month": ["September"]
@@ -78,8 +86,8 @@ const zenDB = [
         "taught_month": ["December"]
       },
     ]
-  },
-  {"tasks": [
+ ,
+  4. "tasks": [
       {
         "taskID": "T001",
         "description": "Complete HTML Tutorial",
@@ -100,8 +108,10 @@ const zenDB = [
         "description": "Create a Portfolio Website",
         "due_date": "2020-10-15"
       }
-   ]},
-  {"company_drives": [
+   ]
+
+
+  5. "company_drives": [
     {
       "company_name": "Tech Corp",
       "date": "2020-10-15",
@@ -120,8 +130,10 @@ const zenDB = [
       "positions": ["Full Stack Developer", "Backend Developer"],
       "students_appeared": ["1", "2", "4"]
     }
-  ]},
-  {"mentors": [
+  ]
+
+
+  6. "mentors": [
     {
       "name": "Thiru",
       "id": "M001",
@@ -146,5 +158,4 @@ const zenDB = [
       "course_taught": "Data Science",
       "users_count": 22
     }
-  ]}
-]
+  ]
