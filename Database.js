@@ -33,8 +33,7 @@ const zenDB = [
       "tasks_submitted": ["T002"]
     },
   ]},
-  {"codekatta": {
-    "user_problems": [
+  {"codekatta": [
       {
         "userID": "1",
         "completed_questions": 50,
@@ -56,9 +55,8 @@ const zenDB = [
         "pending_questions": 24
       },
     ]
-  }},
-  {"topics": {
-    "web_development": [
+  },
+  {"topics": [
       {
         "topic": "HTML",
         "taught_month": ["September"]
@@ -80,8 +78,9 @@ const zenDB = [
         "taught_month": ["December"]
       },
     ]
-  }},
-  {"tasks": [{
+  },
+  {"tasks": [
+      {
         "taskID": "T001",
         "description": "Complete HTML Tutorial",
         "completed_on": "2020-10-02"
@@ -127,13 +126,25 @@ const zenDB = [
       "name": "Thiru",
       "id": "M001",
       "course_taught": "Web Development",
-      "users_count": ["20"]
+      "users_count": 20
     },
     {
       "name": "Kamal",
       "id": "M002",
       "course_taught": "Data Science",
-      "users_count": ["13"]
+      "users_count": 13
+    },
+    {
+      "name": "Jesu",
+      "id": "M003",
+      "course_taught": "Data Science",
+      "users_count": 14
+    },
+    {
+      "name": "Rekha",
+      "id": "M004",
+      "course_taught": "Data Science",
+      "users_count": 22
     }
   ]}
 ]
