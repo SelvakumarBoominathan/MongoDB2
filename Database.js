@@ -127,13 +127,13 @@ const zenDB = {
       "name": "Thiru",
       "id": "M001",
       "course_taught": "Web Development",
-      "users": ["1", "2"]
+      "users_count": ["20"]
     },
     {
       "name": "Kamal",
       "id": "M002",
       "course_taught": "Data Science",
-      "users": ["3", "4"]
+      "users_count": ["13"]
     }
   ]
 }
