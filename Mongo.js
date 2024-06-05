@@ -1,39 +1,14 @@
 // 1. Find all the topics and tasks which are thought in the month of October.
+//Tasks
+db.Tasks.aggregate([
+  { $match: { completed_month: "October" } },
+  { $project: { _id: 0, task_name: "$description" } },
+]);
 
+//Topics
 db.Topics.aggregate([
-  {
-    $facet: {
-      topics: [
-        {
-          $match: {
-            taught_month: "October",
-          },
-        },
-        {
-          $project: {
-            _id: 0,
-            topic: 1,
-          },
-        },
-      ],
-      tasks: [
-        {
-          $match: {
-            completed_on: {
-              $regex: "^2020-10-[0-9]{2}$",
-            },
-          },
-        },
-        {
-          $project: {
-            _id: 0,
-            taskID: 1,
-            description: 1,
-          },
-        },
-      ],
-    },
-  },
+  { $match: { taught_month: "October" } },
+  { $project: { _id: 0, topic_name: "$topic" } },
 ]);
 
 // 2. Find all the company drives which appeared between 15-oct-2020 and 31-oct-2020
@@ -41,7 +16,7 @@ db.Topics.aggregate([
 db.Tasks.find(
   {
     completed_on: {
-      $gte: "2020-10-01",
+      $gte: "2020-10-15",
       $lte: "2020-10-31",
     },
   },
