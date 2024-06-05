@@ -52,19 +52,19 @@ db.Company.aggregate([
 
 db.zenData.aggregate([
   {
-    $unwind: "$codekatta.user_problems", // Unwind to access each individual user's problem
+    $unwind: "$Codekatta.user_problems", // Unwind to access each individual user's problem
   },
   {
     $group: {
-      _id: "$codekatta.user_problems.userID", // Group by user ID
+      _id: "$Codekatta.user_problems.userID", // Group by user ID
       total_problems_solved: {
-        $sum: "$codekatta.user_problems.completed_questions",
+        $sum: "$Codekatta.user_problems.completed_questions",
       }, // Sum completed questions for each user
     },
   },
   {
     $lookup: {
-      from: "users",
+      from: "Users",
       localField: "_id",
       foreignField: "userID",
       as: "user_info",
@@ -72,7 +72,7 @@ db.zenData.aggregate([
   },
   {
     $project: {
-      student_name: { $arrayElemAt: ["$users.name", 0] }, // Get the name of the user
+      student_name: { $arrayElemAt: ["$user_info.name", 0] }, // Get the name of the user
       total_problems_solved: 1, // Include the total_problems_solved field
     },
   },
