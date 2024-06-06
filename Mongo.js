@@ -84,23 +84,31 @@ db.Mentors.find(
 db.Users.aggregate([
   {
     $match: {
-      $or: [
+      $and: [
         {
-          attended_dates: {
-            $not: {
-              $regex: /^2020-10-(15|31)$/,
-            },
-          },
+          absent: { $gte: "2020-10-15", $lte: "2020-10-31" } // Check if absent date falls within the range
         },
         {
-          $expr: {
-            $eq: [{ $size: "$tasks_submitted" }, 0],
-          },
-        },
-      ],
-    },
+          tasks_submitted: { $exists: true, $not: { $size: 0 } } // Check if tasks_submitted array exists and is not empty
+        }
+      ]
+    }
   },
   {
-    $count: "absent_or_no_tasks",
+    $lookup: {
+      from: "Tasks",
+      localField: "tasks_submitted",
+      foreignField: "taskID",
+      as: "task_info"
+    }
   },
-]);
+  {
+    $project: {
+      _id: 0,
+      name: 1
+    }
+  },
+  {
+    $count: "num_users"
+  }
+])
