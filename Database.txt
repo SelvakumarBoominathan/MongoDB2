@@ -11,7 +11,8 @@ collections :
       "email": "ajith@gmail.com",
       "course": "Web Development",
       "attended_dates": ["2020-10-15", "2020-10-20"],
-      "tasks_submitted": ["T001"]
+      "tasks_submitted": ["T001"],
+      "absent" : "2020-10-18"
     },
     {
       "userID": "2",
@@ -19,7 +20,8 @@ collections :
       "email": "rajesh@gmail.com",
       "course": "Data Science",
       "attended_dates": ["2020-10-16", "2020-10-21"],
-      "tasks_submitted": ["T001", "T002"]
+      "tasks_submitted": ["T001", "T002"],
+      "absent" : "2020-10-10"
     },
     {
       "userID": "3",
@@ -27,7 +29,8 @@ collections :
       "email": "Priya@gmail.com",
       "course": "Data Science",
       "attended_dates": ["2020-10-16", "2020-10-21"],
-      "tasks_submitted": ["T001", "T002"]
+      "tasks_submitted": ["T001", "T002"],
+      "absent" : "2020-10-18"
     },
     {
       "userID": "4",
@@ -35,7 +38,8 @@ collections :
       "email": "mahesh@gmail.com",
       "course": "UI/UX",
       "attended_dates": ["2020-10-16", "2020-10-21"],
-      "tasks_submitted": ["T002"]
+      "tasks_submitted": ["T002"],
+      "absent" : "2020-9-18"
     },
   ]
 
