@@ -91,22 +91,26 @@ collections :
       {
         "taskID": "T001",
         "description": "Complete HTML Tutorial",
-        "completed_on": "2020-10-02"
+        "completed_month" : "October",
+        "completed_date": "2020-10-02"
       },
       {
         "taskID": "T002",
         "description": "Build a React App",
-        "completed_on": "2020-10-05"
+        "completed_month" : "October",
+        "completed_date": "2020-10-05"
       },
       {
         "taskID": "T003",
         "description": "Learn Node.js",
-        "due_date": "2020-10-10"
+        "completed_month" : "November",
+        "completed_date": "2020-10-10"
       },
       {
         "taskID": "T004",
         "description": "Create a Portfolio Website",
-        "due_date": "2020-10-15"
+        "completed_month" : "September",
+        "completed_date": "2020-10-15"
       }
    ]
 
