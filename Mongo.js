@@ -50,32 +50,26 @@ db.Company.aggregate([
 
 //   4. find the number of problems solved by the user in codekatta
 
-db.zenData.aggregate([
-  {
-    $unwind: "$Codekatta.user_problems", // Unwind to access each individual user's problem
-  },
-  {
-    $group: {
-      _id: "$Codekatta.user_problems.userID", // Group by user ID
-      total_problems_solved: {
-        $sum: "$Codekatta.user_problems.completed_questions",
-      }, // Sum completed questions for each user
-    },
-  },
+db.Codekatta.aggregate([
   {
     $lookup: {
-      from: "Users",
-      localField: "_id",
-      foreignField: "userID",
-      as: "user_info",
-    },
+      from: "Users", // Join with Users collection
+      localField: "userID", // Creating Link
+      foreignField: "userID", // Creatong Link
+      as: "user_info" // Output array
+    }
+  },
+  {
+    $unwind: "$user_info" // Unwind the user_info array to get the user details
   },
   {
     $project: {
-      student_name: { $arrayElemAt: ["$user_info.name", 0] }, // Get the name of the user
-      total_problems_solved: 1, // Include the total_problems_solved field
-    },
-  },
+      _id: 0, // Exclude the _id field
+      userID: 1, // Include the userID field
+      student_name: "$user_info.name", // Include the student's name
+      total_problems_solved: "$completed_questions" // Include the total problems solved
+    }
+  }
 ]);
 
 // 5.Find all the mentors with who has the mentee's count more than 15.
@@ -87,7 +81,7 @@ db.Mentors.find(
 
 //6.Find the number of users who are absent and task is not submitted between 15-oct-2020 and 31-oct-2020
 
-db.users.aggregate([
+db.Users.aggregate([
   {
     $match: {
       $or: [
